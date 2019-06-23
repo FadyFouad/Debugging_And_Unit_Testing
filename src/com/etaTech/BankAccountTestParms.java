@@ -9,16 +9,15 @@ import static junit.framework.TestCase.assertEquals;
 @RunWith(Parameterized.class)
 public class BankAccountTestParms {
 
-
     private BankAccount bankAccount ;
     private double amount;
     private double expected;
     private boolean branch;
 
-    public BankAccountTestParms(double amount, double expected, boolean branch) {
+    public BankAccountTestParms(double amount, boolean branch, double expected) {
         this.amount = amount;
-        this.expected = expected;
         this.branch = branch;
+        this.expected = expected;
     }
 
     @org.junit.BeforeClass
@@ -35,18 +34,18 @@ public class BankAccountTestParms {
     @Parameterized.Parameters
     public static Collection<Object[]> testConditions(){
         return Arrays.asList(new Object[][]{
-            {1_000_000.00,true,11_000.00},
-            {2_000_000.00,true,12_000.12},
-            {3_000_000.00,true,13_000.34},
-            {4_000_000.00,true,14_000.56},
-            {5_000_000.00,true,15_000.78}
+            {1_000_000.00,true,11_000_000.00},
+            {2_000_000.02,true,12_000_000.02},
+            {3_000_000.00,true,13_000_000.04},
+            {4_000_000.06,true,14_000_000.06},
+            {5_000_000.00,true,15_000_000.08}
         });
     }
 
     @org.junit.Test
     public void deposit() {
         bankAccount.deposit(amount, branch);
-        assertEquals(expected, bankAccount.getBalance(), 0);
+        assertEquals(expected, bankAccount.getBalance(), 0.01);
     }
 
 
