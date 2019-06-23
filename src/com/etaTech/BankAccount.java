@@ -33,6 +33,9 @@ public class BankAccount {
     // at a branch, with a teller.
     // It's false if the customer is performing the transaction at an ATM
     public double withdraw(double amount, boolean branch) {
+        if (!branch&&amount>500){
+          throw new IllegalArgumentException("Sorry You can't withdraw more than 500$ Because you ARE NOT A BRANCH ");
+        }
         balance -= amount;
         return balance;
     }
